@@ -4,7 +4,7 @@
             <a class="linkTo" name='goods'></a>
             <div class="swiper-wrapper">
                 <div class="swiper-slide" v-for="(item,index) in detailData.goodsPhono">
-                    <img :src="item.big"/>
+                    <img v-lazy="item.big"/>
                 </div>
             </div>
             <div class="swiper-pagination"></div>

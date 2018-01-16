@@ -1,14 +1,17 @@
-import getters from './getters'
 const state={
-    count:20
+    count:20,
+    user:false
 }
-const mustation={
+const mutations={
     increment(state){
         state.count++;
+    },
+    reduct(state){
+        state.count--;
     }
 }
 export default{
    state,
-   mustation,
-   getters
+   mutations
 }
+

@@ -1,13 +1,8 @@
 import vue from 'vue'
 import vuex from 'vuex'
-
+import mutation from './mutations'
 vue.use(vuex);
 
-import action from './action'
-import mutation from './mutations'
-
-
-export default new vuex.Store({
-    action,
-    mutation
-})
+export default new vuex.Store(
+      mutation
+)

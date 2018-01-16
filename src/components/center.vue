@@ -64,7 +64,7 @@
                 <div class="aui-col-xs-4  aui-border-r">
                     <img src="../../static/images/balance.png" class="balanceImg">
                     <div class="balance aui-ellipsis-1">
-                        19970
+                       19970
                         <span>余额</span>
                     </div>
                 </div>
@@ -86,6 +86,18 @@
         </section>
     </div>
 
+
+    <div class="aui-content" style="margin-top:0.3rem;">
+        <p>今日温度{{wendu}}</p>
+        <p>今日穿衣指数{{yifu}}</p>
+        <p><button @click="addd()">增加温度</button><button @click="redictt()">降低温度</button></p>
+    </div>
+    <div class="aui-content" style="margin-top:0.3rem;background:#fff;">
+       <input type="text" name="" v-model="count">
+       <p><button @click="increment()">加</button></p>
+       <button @click="reduct()">减</button>
+    </div>
+
     <div class="aui-content" style="margin-top:0.3rem;display: none">
         <ul class="aui-list aui-list-in" style="background-image:none;">
             <li class="aui-list-item aui-list-item-middle">
@@ -100,7 +112,6 @@
             </li>
         </ul>
     </div>
-
     <div class="aui-content" style="margin-top:0.3rem;">
         <ul class="aui-list aui-list-in" style="background-image:none;">
             <li class="aui-list-item aui-list-item-middle">
@@ -138,7 +149,7 @@
     </div>
     <div class="aui-content" style="margin-top:0.3rem;">
         <ul class="aui-list aui-list-in">
-            <li class="aui-list-item aui-list-item-middle">
+            <li class="aui-list-item aui-list-item-middle" @click="about($event)">
                 <div class="aui-list-item-label-icon" style="vertical-align: middle;">
                     <img src="../../static/images/about-icon.png" style="width:1rem;height:1rem;"/>
                 </div>
@@ -164,18 +175,46 @@
 </template>
 
 <script>
+  import {mapState,mapMutations} from "vuex"
+  import store from '../store/index.js'
 export default{
       data(){
-        return:{
-
+        return{
+            wendu:19,
+            yifu:"毛衣"
         }
       },
       created(){
-         this.getData();
+        this.increment()
       },
+      computed:mapState(['count']),
       methods:{
-
-      }
+          ...mapMutations(['increment','reduct']),
+          about:function(event){
+              console.log(event);
+          },
+          redictt:function(){
+            this.wendu-=5;
+          },
+          addd:function(){
+            this.wendu+=5;
+          }
+      },
+      watch:{
+        wendu:{
+            handler:function(nowValue,ordValue){
+                 if(nowValue>20){
+                   this.yifu="短袖"
+                 }else if(nowValue<20 && nowValue >0){
+                   this.yifu="卫衣"
+                 }else{
+                   this.yifu="棉袄"
+                 }
+            },
+            deep:true
+        }
+      },
+      store
 }
 </script>
 
